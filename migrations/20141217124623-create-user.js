@@ -11,12 +11,6 @@ module.exports = {
       email: {
         type: DataTypes.STRING
       },
-      firstName: {
-        type: DataTypes.STRING
-      },
-      lastName: {
-        type: DataTypes.STRING
-      },
       password_digest: {
         type: DataTypes.STRING
       },

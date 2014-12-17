@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SF FLAT PARK</title>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+	<style>
+		#map {
+			height: 500px;
+			margin: 50px;
+		}
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<script type="application/json" id="data"><%- JSON.stringify(parkingData) %></script>
+	<script>
+
+		var onload 	= function () {
+			var dataEl	 	= document.getElementById('data');
+			var parkingData	= JSON.parse(JSON.parse(dataEl.innerHTML));
+			// console.log(parkingData);
+			// Provide your access token
+			L.mapbox.accessToken 	= 'pk.eyJ1IjoibGFsYW91aWwiLCJhIjoiWUhMVzNGQSJ9.7zv1QvR79Py3Ru9NLxyYkg';
+			// Create a map in the div #map
+			var map = L.mapbox.map('map', 'lalaouil.kfn5kjh3');
+			var setupMap		= function (map, coords) {
+				map.setView(coords, 16);
+				console.log(parkingData.garages)
+				window.parkingData = parkingData
+				for (var key in parkingData.garages){
+					var loc = parkingData.garages[key].points;
+					console.log("LOC", loc);
+					// L.marker is a low-level marker constructor in Leaflet.
+					L.marker(loc, {
+					    icon: L.mapbox.marker.icon({
+					        'marker-size': 'large',
+					        'marker-symbol': 'building',
+					        'marker-color': '#BBBFC7'
+					    })
+					}).addTo(map);
+				};
+			};
+			var handleCurrPos 	= function (pos) {
+				var coords = [pos.coords.latitude, pos.coords.longitude];
+
+				setupMap(map, coords);
+			};
+			var handleErrPos 	= function () {
+				setupMap(map, [37.7833, 122.4167])
+			}
+			navigator.geolocation.getCurrentPosition(handleCurrPos)
+		};
+
+
+
+		window.addEventListener("load", onload)
+	</script>
+</body>
+</html>
