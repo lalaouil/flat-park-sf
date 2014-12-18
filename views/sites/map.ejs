@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>SF FLAT PARK</title>
-	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
-	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+	
+<meta charset=utf-8 />
+<title>Leaflet Markercluster</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+
 	<style>
 		#map {
 			height: 500px;
@@ -12,35 +17,62 @@
 	</style>
 </head>
 <body>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
 	<div id="map"></div>
 	<script type="application/json" id="data"><%- JSON.stringify(parkingData) %></script>
 	<script>
 
 		var onload 	= function () {
 			var dataEl	 	= document.getElementById('data');
-			var parkingData	= JSON.parse(JSON.parse(dataEl.innerHTML));
-			// console.log(parkingData);
+			var parkingData	= JSON.parse(dataEl.innerHTML);
+			console.log("Parking data is:",parkingData);
 			// Provide your access token
 			L.mapbox.accessToken 	= 'pk.eyJ1IjoibGFsYW91aWwiLCJhIjoiWUhMVzNGQSJ9.7zv1QvR79Py3Ru9NLxyYkg';
 			// Create a map in the div #map
 			var map = L.mapbox.map('map', 'lalaouil.kfn5kjh3');
 			var setupMap		= function (map, coords) {
 				map.setView(coords, 16);
-				console.log(parkingData.garages)
-				window.parkingData = parkingData
-				for (var key in parkingData.garages){
-					var loc = parkingData.garages[key].points;
-					console.log("LOC", loc);
-					// L.marker is a low-level marker constructor in Leaflet.
-					L.marker(loc, {
-					    icon: L.mapbox.marker.icon({
-					        'marker-size': 'large',
-					        'marker-symbol': 'building',
-					        'marker-color': '#BBBFC7'
-					    })
-					}).addTo(map);
-				};
+				console.log("Garage data is: ", parkingData.garages)
+				parkingData.garages.forEach(function(garage) {
+					if (garage.location) {
+						L.marker(garage.location, {
+						    icon: L.mapbox.marker.icon({
+						        'marker-size': 'small',
+						        'marker-symbol': 'building',
+						        'marker-color': '#f00'
+						    })
+						})
+						.bindPopup('<h3>'+ garage.name +'</h3><p>This garage is awesome!</p>')
+						.addTo(map);
+
+					}			
+				});
+				parkingData.streets.forEach(function(street) {
+					// console.log(street.rate)
+					if (street.location) {
+						var rateHTML = "<ul>";
+						street.rate.forEach(function(rate) {
+							rateHTML += '<li>'+rate.BEG+'-'+rate.END + '</li>';
+						});
+						rateHTML += "</ul>";
+						L.marker(street.location, {
+						    icon: L.mapbox.marker.icon({
+						    	title: street.rate,
+						        'marker-size': 'small',
+						        'marker-symbol': 'car',
+						        'marker-color': '#eee'
+						    })
+						})
+						.bindPopup('<h3>A popup</h3>' + rateHTML)
+						.addTo(map);
+					}				
+				});
 			};
+
+		
+
 			var handleCurrPos 	= function (pos) {
 				var coords = [pos.coords.latitude, pos.coords.longitude];
 
@@ -51,7 +83,6 @@
 			}
 			navigator.geolocation.getCurrentPosition(handleCurrPos)
 		};
-
 
 
 		window.addEventListener("load", onload)
