@@ -5,17 +5,27 @@ module.exports = function () {
 		sfParkURL: "https://publicdata-parking.firebaseio.com/san_francisco.json",
 		getData: function(done) {
 			request(this.sfParkURL, function(err, res, body){
+				var data = JSON.parse(body);
 				var results = {};
 				results.garages = [];
-				console.log(body.garages)
-				console.log("******")
-				for(var key in body.garages) {
+				console.log()
+				for(var key in data.garages) {
 					results.garages.push({
-						location: body.garages[key].points,
+						location: data.garages[key].points,
+						hours: data.garages[key].hours,
 						name: key
 					})
 				}
-				done(body);
+				results.streets = []
+				for(var key in data.streets) {
+					results.streets.push({
+						location: data.streets[key].points,
+						rate: data.streets[key].rates,
+						name: key
+					})
+				}
+
+				done(results);
 			});
 		}
 	}

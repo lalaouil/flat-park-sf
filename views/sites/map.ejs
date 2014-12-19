@@ -1,46 +1,140 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SF FLAT PARK</title>
-	<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
-	<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
-	<style>
-		#map {
-			height: 500px;
-			margin: 50px;
-		}
-	</style>
-</head>
-<body>
-	<div id="map"></div>
+<% include ../layouts/header.ejs %>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="map"></div>
+		</div>
+	</div>
 	<script type="application/json" id="data"><%- JSON.stringify(parkingData) %></script>
 	<script>
 
 		var onload 	= function () {
 			var dataEl	 	= document.getElementById('data');
-			var parkingData	= JSON.parse(JSON.parse(dataEl.innerHTML));
-			// console.log(parkingData);
+			var parkingData	= JSON.parse(dataEl.innerHTML);
+			// console.log("Parking data is:", parkingData);
 			// Provide your access token
 			L.mapbox.accessToken 	= 'pk.eyJ1IjoibGFsYW91aWwiLCJhIjoiWUhMVzNGQSJ9.7zv1QvR79Py3Ru9NLxyYkg';
+// var map = L.mapbox.map('map')
+// 		.setView([], 13)
+// 		.addLayer(L.mapbox.tileLayer(
+// 			var map = L.mapbox.map('map', 'lalaouil.kh1g19l2'));
+
+
+
+
+ var clusterGroup = new L.MarkerClusterGroup();
+
+    for (var i = 0; i < parkingData.streets.length; i++) {
+        var street = parkingData.streets[i];
+        console.log('\n\nTHIS IS A',street);
+        var title = street.name;
+        // console.log(a.location);
+        if (typeof street.location === 'undefined') break; 
+        	var rateHTML = "<ul>";
+						if (street.rate instanceof Array) {
+							street.rate.forEach(function(rate) {
+								rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+							});
+						}
+						rateHTML += "</ul>";
+        var marker = L.marker(new L.LatLng(street.location[0], street.location[1]), {
+            icon: L.mapbox.marker.icon({'marker-symbol': 'car', 'marker-color': '#5C97BF'}),
+            title: title
+        });
+        marker.bindPopup('<h3>Parking Meter: '+title+'</h3>' + rateHTML);
+        clusterGroup.addLayer(marker);
+    }
+
+    // console.log(street)
+					// if (street.location) {
+
+					// 	var rateHTML = "<ul>";
+					// 	if (street.rate instanceof Array) {
+					// 		street.rate.forEach(function(rate) {
+					// 			rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+					// 		});
+					// 	}
+					// 	rateHTML += "</ul>";
+					// 	L.marker(street.location, {
+					// 	    icon: L.mapbox.marker.icon({
+					// 	    	title: street.rate,
+					// 	        'marker-size': 'small',
+					// 	        'marker-symbol': 'car',
+					// 	        'marker-color': '#5C97BF'
+					// 	    })
+					// 	})
+					// 	.bindPopup('<h3>Parking Meters</h3>' + rateHTML)
+					// 	.addTo(map);
+					// }
+
+//    map.addLayer(clusterGroup);
+
+			
+
+
+
+
 			// Create a map in the div #map
-			var map = L.mapbox.map('map', 'lalaouil.kfn5kjh3');
+			var map = L.mapbox.map('map', 'lalaouil.kh1g19l2');
 			var setupMap		= function (map, coords) {
 				map.setView(coords, 16);
-				console.log(parkingData.garages)
-				window.parkingData = parkingData
-				for (var key in parkingData.garages){
-					var loc = parkingData.garages[key].points;
-					console.log("LOC", loc);
-					// L.marker is a low-level marker constructor in Leaflet.
-					L.marker(loc, {
-					    icon: L.mapbox.marker.icon({
-					        'marker-size': 'large',
-					        'marker-symbol': 'building',
-					        'marker-color': '#BBBFC7'
-					    })
-					}).addTo(map);
-				};
+				// console.log("Garage data is: ", parkingData.garages)
+				parkingData.garages.forEach(function(garage) {
+					// console.log(garage);
+					if (garage.location) {
+						var hoursHTML = "<ul>";
+						if (garage.hours instanceof Array) {
+
+							garage.hours.forEach(function(hours) {
+								hoursHTML += '<li>'+ hours.BEG + '-' + hours.END + '</li>';
+							});
+						}
+						hoursHTML += "</ul>";
+						L.marker(garage.location, {
+						    icon: L.mapbox.marker.icon({
+						        'marker-size': 'medium',
+						        'marker-symbol': 'building',
+						        'marker-color': '#EB974E'
+						    })
+						}) //quoted out rate.BEG so that map render wouldnt fail
+						.bindPopup('<h3>'+ garage.name +'</h3>' + hoursHTML)
+						.addTo(map);
+
+					}			
+				});
+				/*
+				parkingData.streets.forEach(function(street) {
+					// console.log(street)
+					if (street.location) {
+
+						var rateHTML = "<ul>";
+						if (street.rate instanceof Array) {
+							street.rate.forEach(function(rate) {
+								rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+							});
+						}
+						rateHTML += "</ul>";
+						L.marker(street.location, {
+						    icon: L.mapbox.marker.icon({
+						    	title: street.rate,
+						        'marker-size': 'small',
+						        'marker-symbol': 'car',
+						        'marker-color': '#5C97BF'
+						    })
+						})
+						.bindPopup('<h3>Parking Meters</h3>' + rateHTML)
+						.addTo(map);
+					}
+
+				}); */
+
+    map.addLayer(clusterGroup);
 			};
+
+		
+
 			var handleCurrPos 	= function (pos) {
 				var coords = [pos.coords.latitude, pos.coords.longitude];
 
@@ -53,8 +147,6 @@
 		};
 
 
-		// I'm adding this comment so I can commit changes to github :) 
 		window.addEventListener("load", onload)
 	</script>
-</body>
-</html>
+<% include ../layouts/footer.ejs %>

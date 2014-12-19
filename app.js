@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(__dirname + "/public"))
 
 /*
   What is the session?
@@ -28,9 +28,7 @@ app.use(session( {
   })
 );
 
-// get passport started
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 /*
 SERIALizING
@@ -63,6 +61,10 @@ passport.deserializeUser(function(id, done){
     });
 });
 
+// get passport started
+app.use(passport.initialize());
+app.use(passport.session());
+
 // the root route for localhost:3000/
 app.get("/", function (req, res) {
   console.log(req.user)
@@ -78,6 +80,11 @@ app.get("/", function (req, res) {
 
 app.get('/login', function(req, res) {
 	res.render('sites/login');
+});
+
+app.get('/logout', function(req, res) {
+  req.logout()
+  res.redirect('/');
 });
 
 app.get('/signup', function(req, res) {
@@ -103,19 +110,13 @@ app.get('/map', function(req, res) {
 
 
 
-app.get("/logout", function (req, res) {
-  // log out
-  req.logout();
-  res.redirect("/");
-});
-
 // WHEN SOMEONE  SUBMITS A SIGNUP PAGE
 app.post("/users", function (req, res) {
   console.log("POST /users");
   var newUser = req.body.user;
   console.log("New User:", newUser);
   // CREATE a user and secure their password
-  db.user.createSecure(newUser.email, newUser.password_digest, 
+  db.user.createSecure(newUser.email, newUser.password, 
     function () {
     	console.log("Failed signup");
       // if a user fails to create make them signup again
@@ -127,7 +128,7 @@ app.post("/users", function (req, res) {
       req.login(user, function(){
         // after login redirect show page
         console.log("Id: ", user.id)
-        res.redirect('/users/' + user.id);
+        res.redirect("/map");
       });
     })
 });
@@ -136,13 +137,13 @@ app.post("/users", function (req, res) {
 
 // Authenticating a user
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  //On successful login go to /map
+  successRedirect: '/map',
   failureRedirect: '/login'
 }));
 
 
-
-app.listen(3000, function (){
+app.listen(process.env.PORT || 3000, function (){
  	console.log((new Array(50)).join("*"));
  	console.log("\t listening on localhost:3000");
 })
