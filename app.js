@@ -82,10 +82,10 @@ app.get('/login', function(req, res) {
 	res.render('sites/login');
 });
 
-app.get('/logout', function(req, res){
+app.get('/logout', function(req, res) {
   req.logout()
-  res.redirect('/login');
-})
+  res.redirect('/');
+});
 
 app.get('/signup', function(req, res) {
 	res.render('sites/signup');
@@ -141,13 +141,6 @@ app.post('/login', passport.authenticate('local', {
   successRedirect: '/map',
   failureRedirect: '/login'
 }));
-
-
-app.get("/logout", function (req, res) {
-  console.log("Logout:", req.user);
-  req.logout();
-  res.redirect("/login")
-});
 
 
 app.listen(process.env.PORT || 3000, function (){
