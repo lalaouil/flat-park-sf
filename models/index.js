@@ -9,7 +9,6 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 var db        = {};
 
 // NEEDED FOR HEROKU ///////////
-if(config.use_env_variable){
   console.log((new Array(51).join("*")))
 
   var db_info = process.env[config.use_env_variable].match(/([^:]+):\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
@@ -20,7 +19,7 @@ if(config.use_env_variable){
   config.port=db_info[5];  
   config.database=db_info[6];  
     console.log(config)
-}
+
 //////////////////////////////
 fs
   .readdirSync(__dirname)
