@@ -13,7 +13,7 @@
 		var onload 	= function () {
 			var dataEl	 	= document.getElementById('data');
 			var parkingData	= JSON.parse(dataEl.innerHTML);
-			console.log("Parking data is:", parkingData);
+			// console.log("Parking data is:", parkingData);
 			// Provide your access token
 			L.mapbox.accessToken 	= 'pk.eyJ1IjoibGFsYW91aWwiLCJhIjoiWUhMVzNGQSJ9.7zv1QvR79Py3Ru9NLxyYkg';
 // var map = L.mapbox.map('map')
@@ -24,23 +24,52 @@
 
 
 
- var markers = new L.MarkerClusterGroup();
+ var clusterGroup = new L.MarkerClusterGroup();
 
     for (var i = 0; i < parkingData.streets.length; i++) {
-        var a = parkingData.streets[i];
-        console.log('\n\nTHIS IS A',a);
-        var title = a.name;
-        console.log(a.location);
-        if (typeof a.location === 'undefined') break; 
-        var marker = L.marker(new L.LatLng(a.location[0], a.location[1]), {
-            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+        var street = parkingData.streets[i];
+        console.log('\n\nTHIS IS A',street);
+        var title = street.name;
+        // console.log(a.location);
+        if (typeof street.location === 'undefined') break; 
+        	var rateHTML = "<ul>";
+						if (street.rate instanceof Array) {
+							street.rate.forEach(function(rate) {
+								rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+							});
+						}
+						rateHTML += "</ul>";
+        var marker = L.marker(new L.LatLng(street.location[0], street.location[1]), {
+            icon: L.mapbox.marker.icon({'marker-symbol': 'car', 'marker-color': '#5C97BF'}),
             title: title
         });
-        marker.bindPopup(title);
-        markers.addLayer(marker);
+        marker.bindPopup('<h3>Parking Meter: '+title+'</h3>' + rateHTML);
+        clusterGroup.addLayer(marker);
     }
 
-//    map.addLayer(markers);
+    // console.log(street)
+					// if (street.location) {
+
+					// 	var rateHTML = "<ul>";
+					// 	if (street.rate instanceof Array) {
+					// 		street.rate.forEach(function(rate) {
+					// 			rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+					// 		});
+					// 	}
+					// 	rateHTML += "</ul>";
+					// 	L.marker(street.location, {
+					// 	    icon: L.mapbox.marker.icon({
+					// 	    	title: street.rate,
+					// 	        'marker-size': 'small',
+					// 	        'marker-symbol': 'car',
+					// 	        'marker-color': '#5C97BF'
+					// 	    })
+					// 	})
+					// 	.bindPopup('<h3>Parking Meters</h3>' + rateHTML)
+					// 	.addTo(map);
+					// }
+
+//    map.addLayer(clusterGroup);
 
 			
 
@@ -51,9 +80,9 @@
 			var map = L.mapbox.map('map', 'lalaouil.kh1g19l2');
 			var setupMap		= function (map, coords) {
 				map.setView(coords, 16);
-				console.log("Garage data is: ", parkingData.garages)
+				// console.log("Garage data is: ", parkingData.garages)
 				parkingData.garages.forEach(function(garage) {
-					console.log(garage);
+					// console.log(garage);
 					if (garage.location) {
 						var hoursHTML = "<ul>";
 						if (garage.hours instanceof Array) {
@@ -75,8 +104,9 @@
 
 					}			
 				});
+				/*
 				parkingData.streets.forEach(function(street) {
-					console.log(street)
+					// console.log(street)
 					if (street.location) {
 
 						var rateHTML = "<ul>";
@@ -98,9 +128,9 @@
 						.addTo(map);
 					}
 
-				});
+				}); */
 
-    map.addLayer(markers);
+    map.addLayer(clusterGroup);
 			};
 
 		
