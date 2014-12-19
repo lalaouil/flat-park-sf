@@ -10,7 +10,6 @@ var db        = {};
 
 // NEEDED FOR HEROKU ///////////
 if(config.use_env_variable){
-  console.log(env["DATABASE_URL"])
   var db_info = process.env[config.use_env_variable].match(/([^:]+):\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/);
   config.dialect=db_info[1];
   config.username=db_info[2];
