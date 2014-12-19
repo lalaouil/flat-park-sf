@@ -82,6 +82,11 @@ app.get('/login', function(req, res) {
 	res.render('sites/login');
 });
 
+app.get('/logout', function(req, res){
+  req.logout()
+  res.redirect('/login');
+})
+
 app.get('/signup', function(req, res) {
 	res.render('sites/signup');
 });
