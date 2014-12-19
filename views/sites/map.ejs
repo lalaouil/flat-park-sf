@@ -1,74 +1,106 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SF FLAT PARK</title>
-	
-<meta charset=utf-8 />
-<title>Leaflet Markercluster</title>
-<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
-
-	<style>
-		#map {
-			height: 500px;
-			margin: 50px;
-		}
-	</style>
-</head>
-<body>
+<% include ../layouts/header.ejs %>
 	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
 	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
 	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
-	<div id="map"></div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="map"></div>
+		</div>
+	</div>
 	<script type="application/json" id="data"><%- JSON.stringify(parkingData) %></script>
 	<script>
 
 		var onload 	= function () {
 			var dataEl	 	= document.getElementById('data');
 			var parkingData	= JSON.parse(dataEl.innerHTML);
-			console.log("Parking data is:",parkingData);
+			console.log("Parking data is:", parkingData);
 			// Provide your access token
 			L.mapbox.accessToken 	= 'pk.eyJ1IjoibGFsYW91aWwiLCJhIjoiWUhMVzNGQSJ9.7zv1QvR79Py3Ru9NLxyYkg';
+// var map = L.mapbox.map('map')
+// 		.setView([], 13)
+// 		.addLayer(L.mapbox.tileLayer(
+// 			var map = L.mapbox.map('map', 'lalaouil.kh1g19l2'));
+
+
+
+
+ var markers = new L.MarkerClusterGroup();
+
+    for (var i = 0; i < parkingData.streets.length; i++) {
+        var a = parkingData.streets[i];
+        console.log('\n\nTHIS IS A',a);
+        var title = a.name;
+        console.log(a.location);
+        if (typeof a.location === 'undefined') break; 
+        var marker = L.marker(new L.LatLng(a.location[0], a.location[1]), {
+            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+            title: title
+        });
+        marker.bindPopup(title);
+        markers.addLayer(marker);
+    }
+
+//    map.addLayer(markers);
+
+			
+
+
+
+
 			// Create a map in the div #map
-			var map = L.mapbox.map('map', 'lalaouil.kfn5kjh3');
+			var map = L.mapbox.map('map', 'lalaouil.kh1g19l2');
 			var setupMap		= function (map, coords) {
 				map.setView(coords, 16);
 				console.log("Garage data is: ", parkingData.garages)
 				parkingData.garages.forEach(function(garage) {
+					console.log(garage);
 					if (garage.location) {
+						var hoursHTML = "<ul>";
+						if (garage.hours instanceof Array) {
+
+							garage.hours.forEach(function(hours) {
+								hoursHTML += '<li>'+ hours.BEG + '-' + hours.END + '</li>';
+							});
+						}
+						hoursHTML += "</ul>";
 						L.marker(garage.location, {
 						    icon: L.mapbox.marker.icon({
-						        'marker-size': 'small',
+						        'marker-size': 'medium',
 						        'marker-symbol': 'building',
-						        'marker-color': '#f00'
+						        'marker-color': '#EB974E'
 						    })
-						})
-						.bindPopup('<h3>'+ garage.name +'</h3><p>This garage is awesome!</p>')
+						}) //quoted out rate.BEG so that map render wouldnt fail
+						.bindPopup('<h3>'+ garage.name +'</h3>' + hoursHTML)
 						.addTo(map);
 
 					}			
 				});
 				parkingData.streets.forEach(function(street) {
-					// console.log(street.rate)
+					console.log(street)
 					if (street.location) {
+
 						var rateHTML = "<ul>";
-						street.rate.forEach(function(rate) {
-							rateHTML += '<li>'+rate.BEG+'-'+rate.END + '</li>';
-						});
+						if (street.rate instanceof Array) {
+							street.rate.forEach(function(rate) {
+								rateHTML += '<li>'+rate.BEG+'-'+rate.END + ':<br> $' + rate.RATE + ' ' + rate.RQ + '</li>';
+							});
+						}
 						rateHTML += "</ul>";
 						L.marker(street.location, {
 						    icon: L.mapbox.marker.icon({
 						    	title: street.rate,
 						        'marker-size': 'small',
 						        'marker-symbol': 'car',
-						        'marker-color': '#eee'
+						        'marker-color': '#5C97BF'
 						    })
 						})
-						.bindPopup('<h3>A popup</h3>' + rateHTML)
+						.bindPopup('<h3>Parking Meters</h3>' + rateHTML)
 						.addTo(map);
-					}				
+					}
+
 				});
+
+    map.addLayer(markers);
 			};
 
 		
@@ -87,5 +119,4 @@
 
 		window.addEventListener("load", onload)
 	</script>
-</body>
-</html>
+<% include ../layouts/footer.ejs %>

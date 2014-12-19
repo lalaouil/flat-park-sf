@@ -1,0 +1,314 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lo",
+				"location"
+			],
+			[
+				"pro",
+				"properties"
+			],
+			[
+				"g",
+				"garages"
+			],
+			[
+				"re",
+				"redirect"
+			],
+			[
+				"log",
+				"logout"
+			],
+			[
+				"res",
+				"results"
+			],
+			[
+				"par",
+				"parkingData"
+			],
+			[
+				"pa",
+				"parkingData"
+			],
+			[
+				"da",
+				"dataEl"
+			],
+			[
+				"new",
+				"newPass"
+			],
+			[
+				"me",
+				"memoryTileShuffle"
+			],
+			[
+				"m",
+				"memoryArray"
+			],
+			[
+				"background",
+				"background-color"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"se",
+				"setMessage"
+			],
+			[
+				"is",
+				"isGameOver"
+			],
+			[
+				"s",
+				"squares"
+			],
+			[
+				"p",
+				"players"
+			],
+			[
+				"st",
+				"setMessage"
+			],
+			[
+				"o",
+				"operator_display"
+			],
+			[
+				"le",
+				"letterCount"
+			],
+			[
+				"ar",
+				"arr1"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 359.0,
+		"selected_items":
+		[
+		],
+		"width": 504.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/lauriealaoui/flat_park_sf/views/sites/map.ejs",
+		"/Users/lauriealaoui/flat_park_sf/app.js",
+		"/Users/lauriealaoui/flat_park_sf/config/config.json",
+		"/Users/lauriealaoui/flat_park_sf/node_modules/ejs/map.ejs",
+		"/Users/lauriealaoui/flat_park_sf/.gitignore",
+		"/Users/lauriealaoui/Downloads/phys_contours_wgs/phys_contours_wgs.shp.xml",
+		"/Users/lauriealaoui/authEx/user.js",
+		"/Users/lauriealaoui/node_modules/bcrypt/examples/bcrypt.js",
+		"/Users/lauriealaoui/node_modules/bcrypt/node_modules/nan/package.json",
+		"/Users/lauriealaoui/node_modules/bcrypt/package.json",
+		"/Users/lauriealaoui/node_modules/bcrypt/node_modules/bindings/package.json",
+		"/Users/lauriealaoui/intro_examples/package.json",
+		"/Users/lauriealaoui/new_feed_2/example.js",
+		"/Users/lauriealaoui/thanks-lab/memory/memory_game",
+		"/Users/lauriealaoui/news_feed2/index.js",
+		"/Users/lauriealaoui/Desktop/GA/news_feed/package.json",
+		"/Users/lauriealaoui/Desktop/GA/news_feed/index.ejs",
+		"/Users/lauriealaoui/Desktop/GA/news_feed/index.sql",
+		"/Users/lauriealaoui/.bash_profile",
+		"/Users/lauriealaoui/example.sql",
+		"/Users/lauriealaoui/Desktop/GA/mergeSort.html",
+		"/Users/lauriealaoui/thanks-lab/memory/index.html",
+		"/Users/lauriealaoui/Documents/new_project/test/sorting algorithum",
+		"/Users/lauriealaoui/Downloads/memory_game/css/.css",
+		"/Users/lauriealaoui/Downloads/memory_game 2/css/style.css",
+		"/Users/lauriealaoui/Downloads/memory_game/css/style.css",
+		"/Users/lauriealaoui/thanks-lab/README.md",
+		"/Users/lauriealaoui/Documents/prototypes.js",
+		"/Users/lauriealaoui/Documents/new_project/test/index_of_test.js",
+		"/Users/lauriealaoui/Documents/new_project/test/dd.js",
+		"/Users/lauriealaoui/Documents/iterators_lab/README.md",
+		"/Users/lauriealaoui/Documents/AM problems/var friend = {",
+		"/Users/lauriealaoui/Documents/AM problems/factorial-recursion",
+		"/Users/lauriealaoui/Documents/tictactoe_js/tictactoe.js",
+		"/Users/lauriealaoui/Documents/tictactoe_js/style.css",
+		"/Users/lauriealaoui/Desktop/letterCount.js",
+		"/Users/lauriealaoui/Desktop/prime.js",
+		"/Users/lauriealaoui/Desktop/probOfTheDay.js",
+		"/Users/lauriealaoui/isPrime.js",
+		"/Users/lauriealaoui/primes.js",
+		"/Users/lauriealaoui/prime.js",
+		"/Users/lauriealaoui/controlFlowLab/numSquare.js",
+		"/Users/lauriealaoui/controlFlowLab/functionLabDay3.js",
+		"/Users/lauriealaoui/controlFlowLab/lectureExamples.js",
+		"/Users/lauriealaoui/practiceDay3.js",
+		"/Users/lauriealaoui/controlFlowLab/tempConvert.js",
+		"/Users/lauriealaoui/controlFlowLab/pluralizer.js",
+		"/Users/lauriealaoui/controlFlowLab/filterLongWords.js",
+		"/Users/lauriealaoui/exerciseTwo.js",
+		"/Users/lauriealaoui/exerciseOne.js",
+		"/Users/lauriealaoui/warmUpThree.js",
+		"/Users/lauriealaoui/warmUpOne.js",
+		"/Users/lauriealaoui/Desktop/about_me,html",
+		"/Users/lauriealaoui/Desktop/hello.html",
+		"/Users/lauriealaoui/Documents/prework/README.md"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"http",
+			"fire",
+			"http:/",
+			"http:",
+			"/map",
+			"myLayer.on('mouseover', function(e) {\n			    e.layer.openPopup();\n			});\n			myLayer.on('mouseout', function(e) {\n			    e.layer.closePopup();\n			});",
+			"garage",
+			"garages",
+			"body",
+			"logout",
+			"console",
+			"mysql",
+			" \"username\": \"root\",\n    \"password\": null,",
+			"mysql",
+			"\"username\": \"root\",\n    \"password\": null,",
+			"mysql"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "app.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 604.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

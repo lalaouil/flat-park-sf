@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SF FLAT PARK</title>
-</head>
-<body>
-hello world home
-</body>
-</html>
+<% include ../layouts/header.ejs %>
+	<div class="jumbotron">
+		<h1>FLAT PARK SF</h1>
+	</div>
+	<div class="row">
+		<div class="col-xs-offset-5 col-xs-2">
+			<form method="GET" action="/signup">
+				<button class="btn-lg btn btn-primary">Sign Up</button>
+			</form>
+		</div>
+	</div>
+<% include ../layouts/footer.ejs %>

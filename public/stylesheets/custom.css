@@ -1,0 +1,16 @@
+body {
+	padding-top: 75px;
+	font-family: 'Raleway', sans-serif;
+	background-color: #34495D;
+	color: #EAE3E3;
+}
+button {
+	color:black;
+}
+div.jumbotron h1 {
+	color: aec8d9f;
+}
+nav.navbar-default {
+	background-color: #34495E;
+	border: solid 1px AEC8D9;
+}

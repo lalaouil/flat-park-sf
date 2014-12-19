@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>SF FLAT PARK</title>
-</head>
-<body>
-<h1>signup</h1>
-<form method="POST" action="/users">
-	<input type="text" name="user[email]">
-	<input type="password" name="user[password]">
-	<button>Submit</button>
-</form>
-
-</body>
-</html>
+<% include ../layouts/header.ejs %>
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4">
+		<h1>Sign Up</h1>
+		<form method="POST" action="/users">
+			<div class="form-group">
+				<input class="form-control" type="text" placeholder="Email" name="user[email]" >
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="password" placeholder="Password" name="user[password]">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+<% include ../layouts/footer.ejs %>

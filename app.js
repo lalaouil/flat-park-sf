@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(__dirname + "/public"))
 
 /*
   What is the session?
@@ -132,6 +132,7 @@ app.post("/users", function (req, res) {
 
 // Authenticating a user
 app.post('/login', passport.authenticate('local', {
+  //On successful login go to /map
   successRedirect: '/map',
   failureRedirect: '/login'
 }));
@@ -144,7 +145,7 @@ app.get("/logout", function (req, res) {
 });
 
 
-app.listen(3000, function (){
+app.listen(process.env.PORT || 3000, function (){
  	console.log((new Array(50)).join("*"));
  	console.log("\t listening on localhost:3000");
 })

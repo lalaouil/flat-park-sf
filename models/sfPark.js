@@ -12,6 +12,7 @@ module.exports = function () {
 				for(var key in data.garages) {
 					results.garages.push({
 						location: data.garages[key].points,
+						hours: data.garages[key].hours,
 						name: key
 					})
 				}
